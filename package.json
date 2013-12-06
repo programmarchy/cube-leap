@@ -2,6 +2,7 @@
   "name": "leap-cubelets",
   "dependencies": {
     "cubelets": "*",
-    "leapjs": "git+https://github.com/leapmotion/leapjs.git#8413fa8e"
+    "leapjs": "git+https://github.com/leapmotion/leapjs.git#8413fa8e",
+    "multimeter": "*"
   }
 }
