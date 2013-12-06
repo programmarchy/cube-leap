@@ -22,7 +22,6 @@ function mapToCubeletValue(t) {
   var x = p[0];
   var y = p[1];
   var z = p[2];
-  return y;
   return Math.round(255 * ((y * 0.5) + 1));
 }
 
@@ -43,22 +42,21 @@ bluetoothCubelet.on('open', function() {
   }, 200);
 });
 
-var lastFrame = null;
+var firstFrame = null;
 controller.on("frame", function(frame) {
   if (frame.valid) {
-    if (!lastFrame) {
-      lastFrame = frame;
+    if (!firstFrame) {
+      firstFrame = frame;
     }
     if (!interactionBox) {
       interactionBox = new Leap.InteractionBox(frame.interactionBox);
     }
     if (frame.hands.length >= 1) {
-      cubelet1Value = mapToCubeletValue(frame.hands[0].translation(lastFrame));
+      cubelet1Value = mapToCubeletValue(frame.hands[0].translation(firstFrame));
     }
     if (frame.hands.length >= 2) {
-      cubelet2Value = mapToCubeletValue(frame.hands[1].translation(lastFrame));
+      cubelet2Value = mapToCubeletValue(frame.hands[1].translation(firstFrame));
     }
-    lastFrame = frame;
   }
 });
 
