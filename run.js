@@ -1,5 +1,5 @@
 if (process.argv.length < 3) {
-  console.log('Usage: node leap.js PORT [ID1] [ID2]');
+  console.log('Usage: node run.js PORT [ID1] [ID2]');
   return;
 }
 
@@ -22,7 +22,7 @@ function mapToCubeletValue(t) {
   var x = p[0];
   var y = p[1];
   var z = p[2];
-  return Math.round(255 * ((y * 0.5) + 1));
+  return Math.round(255 * ((z * 0.5) + 1));
 }
 
 bluetoothCubelet.on('open', function() {
@@ -55,7 +55,7 @@ controller.on("frame", function(frame) {
       cubelet1Value = mapToCubeletValue(frame.hands[0].translation(lastFrame));
     }
     else {
-      cubelte1Value = 0;
+      cubelet1Value = 0;
     }
     if (frame.hands.length >= 2) {
       cubelet2Value = mapToCubeletValue(frame.hands[1].translation(lastFrame));
