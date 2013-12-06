@@ -1,17 +1,17 @@
 var Leap = require('leapjs');
 
 var controller = new Leap.Controller();
+var interactionBox = null;
 
 var leftCubeletValue = 0;
 var rightCubeletValue = 0;
 
 function getCubeletValue(t) {
-  t = Leap.normalizePosition(t);
-  var x = t[0];
-  var y = t[1];
-  var z = t[2];
-  console.log(x,y,z);
-  return 255 * ((y * 0.5) + 1);
+  var p = interactionBox.normalizePoint(t);
+  var x = p[0];
+  var y = p[1];
+  var z = p[2];
+  return Math.round(255 * ((y * 0.5) + 1));
 }
 
 setInterval(function() {
@@ -24,13 +24,14 @@ controller.on("frame", function(frame) {
     if (!lastFrame) {
       lastFrame = frame;
     }
-    if (frame.hands && frame.hands.length >= 2) {
-      if (frame.hands[0] !== Leap.Hand.Invalid) {
-        leftCubeletValue = getCubeletValue(frame.hands[0].translation(lastFrame));
-      }
-      if (frame.hands[1] !== Leap.Hand.Invalid) {
-        rightCubeletValue = getCubeletValue(frame.hands[1].translation(lastFrame));
-      }
+    if (!interactionBox) {
+      interactionBox = new Leap.InteractionBox(frame.interactionBox);
+    }
+    if (frame.hands.length >= 1) {
+      leftCubeletValue = getCubeletValue(frame.hands[0].translation(lastFrame));
+    }
+    if (frame.hands.length >= 2) {
+      rightCubeletValue = getCubeletValue(frame.hands[1].translation(lastFrame));
     }
     lastFrame = frame;
   }
