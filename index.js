@@ -5,7 +5,7 @@ if (process.argv.length < 3) {
 
 var device = process.argv[2];
 var SerialPort = require('serialport').SerialPort;
-var bluetoothCubelet = new SerialPort({ baudrate: 38400 });
+var bluetoothCubelet = new SerialPort(device, { baudrate: 38400 });
 
 var cubelets = require('cubelets');
 var cubelet1ID = process.argv.length >= 4 ? process.argv[3] : 0;
@@ -22,12 +22,24 @@ function mapToCubeletValue(t) {
   var x = p[0];
   var y = p[1];
   var z = p[2];
+  return y;
   return Math.round(255 * ((y * 0.5) + 1));
 }
 
 bluetoothCubelet.on('open', function() {
+  console.log('Bluetooth Cubelet connected...');
   setInterval(function() {
     console.log(cubelet1Value, cubelet2Value);
+    if (cubelet1ID) {
+      bluetoothCubelet.write(new cubelets
+        .SetBlockValueCommand(cubelet1ID, cubelet1Value)
+          .encode());
+    }
+    if (cubelet2ID) {
+      bluetoothCubelet.write(new cubelets
+        .SetBlockValueCommand(cubelet2ID, cubelet2Value)
+          .encode());
+    }
   }, 200);
 });
 
