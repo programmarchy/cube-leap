@@ -39,24 +39,31 @@ bluetoothCubelet.on('open', function() {
         .SetBlockValueCommand(cubelet2ID, cubelet2Value)
           .encode());
     }
-  }, 200);
+  }, 250);
 });
 
-var firstFrame = null;
+var lastFrame = null;
 controller.on("frame", function(frame) {
   if (frame.valid) {
-    if (!firstFrame) {
-      firstFrame = frame;
+    if (!lastFrame) {
+      lastFrame = frame;
     }
     if (!interactionBox) {
       interactionBox = new Leap.InteractionBox(frame.interactionBox);
     }
     if (frame.hands.length >= 1) {
-      cubelet1Value = mapToCubeletValue(frame.hands[0].translation(firstFrame));
+      cubelet1Value = mapToCubeletValue(frame.hands[0].translation(lastFrame));
+    }
+    else {
+      cubelte1Value = 0;
     }
     if (frame.hands.length >= 2) {
-      cubelet2Value = mapToCubeletValue(frame.hands[1].translation(firstFrame));
+      cubelet2Value = mapToCubeletValue(frame.hands[1].translation(lastFrame));
     }
+    else {
+      cubelet2Value = 0;
+    }
+    lastFrame = frame;
   }
 });
 
