@@ -1,2 +1,4 @@
-Use Cubelets with the Leap Motion
-=================================
+cube-leap
+=========
+
+Control cubelets with your leap motion
