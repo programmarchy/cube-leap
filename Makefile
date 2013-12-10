@@ -1,8 +1,7 @@
-SERIALPORT=/dev/cu.Cubelet-RGB-AMP-SPP
-CUBELET0=40834
-CUBELET1=30241
+SERIALPORT=/dev/cu.Cubelet-RGB-AMP-SPP# Paired Bluetooth Cubelet
+CUBELETS=40834 30241# List of Cubelet IDs to control
 
 leap:
-	node leap $(SERIALPORT) $(CUBELET0) $(CUBELET1)
+	node leap $(SERIALPORT) $(CUBELETS)
 
 .PHONY: leap
