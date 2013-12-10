@@ -1,0 +1,8 @@
+SERIALPORT=/dev/cu.Cubelet-RGB-AMP-SPP
+CUBELET0=40834
+CUBELET1=30241
+
+leap:
+	node leap $(SERIALPORT) $(CUBELET0) $(CUBELET1)
+
+.PHONY: leap

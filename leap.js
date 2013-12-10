@@ -22,7 +22,7 @@ function mapToCubeletValue(t) {
   var x = p[0];
   var y = p[1];
   var z = p[2];
-  return Math.round(255 * ((z * 0.5) + 1));
+  return Math.max(0, Math.min(Math.round(255 * y), 255));
 }
 
 bluetoothCubelet.on('open', function() {
@@ -52,13 +52,13 @@ controller.on("frame", function(frame) {
       interactionBox = new Leap.InteractionBox(frame.interactionBox);
     }
     if (frame.hands.length >= 1) {
-      cubelet1Value = mapToCubeletValue(frame.hands[0].translation(lastFrame));
+      cubelet1Value = mapToCubeletValue(frame.hands[0].palmPosition);
     }
     else {
       cubelet1Value = 0;
     }
     if (frame.hands.length >= 2) {
-      cubelet2Value = mapToCubeletValue(frame.hands[1].translation(lastFrame));
+      cubelet2Value = mapToCubeletValue(frame.hands[1].palmPosition);
     }
     else {
       cubelet2Value = 0;
@@ -73,4 +73,4 @@ controller.on('ready', function() {
 });
 
 controller.connect();
-console.log("\nWaiting for device to connect...");
+console.log("Waiting for device to connect...");
