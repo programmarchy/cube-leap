@@ -1,7 +1,6 @@
 {
   "name": "leap-cubelets",
   "dependencies": {
-    "cubelets": "*",
     "serialport": "1.2.5",
     "leapjs": "git+https://github.com/leapmotion/leapjs.git#8413fa8e"
   }
