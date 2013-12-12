@@ -32,14 +32,18 @@ mossBrain.on('open', function() {
   ]));
   setInterval(function() {
     console.log(mossBrainFace1Value, mossBrainFace2Value);
-    if (mossBrainFace1Index > 0) {
+    if (mossBrainFace1Index >= 0) {
       mossBrain.write(new Buffer([
-        '<'.charCodeAt(0), 'v'.charCodeAt(0), 0, 2, '>'.charCodeAt(0), mossBrainFace1Index, mossBrainFace1Value
+        '<'.charCodeAt(0),
+        'v'.charCodeAt(0), 0, 2,
+        '>'.charCodeAt(0), mossBrainFace1Index, mossBrainFace1Value
       ]));
     }
-    if (mossBrainFace2Index > 0) {
+    if (mossBrainFace2Index >= 0) {
       mossBrain.write(new Buffer([
-        '<'.charCodeAt(0), 'v'.charCodeAt(0), 0, 2, '>'.charCodeAt(0), mossBrainFace2Index, mossBrainFace2Value
+        '<'.charCodeAt(0),
+        'v'.charCodeAt(0), 0, 2,
+        '>'.charCodeAt(0), mossBrainFace2Index, mossBrainFace2Value
       ]));
     }
   }, 50);
